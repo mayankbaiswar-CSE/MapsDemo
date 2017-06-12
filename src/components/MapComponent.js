@@ -3,6 +3,11 @@ import { View, Text } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 class MapComponent extends Component {
+
+    onMarkerPress() {
+        console.log('marker tapped');
+    }
+
     render() {
         return (
             <MapView
@@ -23,7 +28,8 @@ class MapComponent extends Component {
                     title={"Custom"}
                     description={"Custom marker for test."}
                     image={require('../assets/marker_14.png')}
-                    onSelect={() => console.log('marker pressed.')}
+                    onSelect={this.onMarkerPress.bind(this)}
+                    onPress={this.onMarkerPress.bind(this)}
                 />
             </MapView>
         );
