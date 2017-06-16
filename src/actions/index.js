@@ -4,10 +4,17 @@ import {
     PASSWORD_CHANGED,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
-    LOGIN_USER
+    LOGIN_USER,
+    DRAWER_OPEN,
+    DRAWER_CLOSE,
+    SELECT_IMAGE,
+    INPUT_HANDLER,
+    SAVED_INPUT,
+    DATA_SAVER
 } from './types';
 import { Actions } from 'react-native-router-flux';
 import data from '../reducers/LibraryList.json';
+import { AsyncStorage } from 'react-native';
 
 export const emailChanged = (text) => {
     return {
@@ -29,7 +36,8 @@ export const loginUser = ({ email, password }) => {
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => loginUserSuccess(dispatch, user))
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(user => loginUserSuccess(dispatch, user))
                     .catch(() => loginUserFail(dispatch));
@@ -46,7 +54,7 @@ const loginUserSuccess = (dispatch, user) => {
         type: LOGIN_USER_SUCCESS,
         payload: user
     });
-    Actions.main();
+    Actions.drawer();
 }
 
 export const selectLibrary = (libraryId) => {
@@ -64,6 +72,58 @@ export const goToMaps = () => {
         dispatch({
             type: 'map_render'
         });
-        Actions.maps();
+        // Actions.maps();
+    };
+};
+
+export const openDrawer = (drawer) => {
+    return {
+        type: DRAWER_OPEN,
+        payload: drawer
+    };
+};
+
+export const closeDrawer = (drawer) => {
+    return {
+        type: DRAWER_CLOSE,
+        payload: drawer
+    };
+};
+
+export const selectImage = (uri) => {
+    return (dispatch) => {
+        dispatch({
+            type: SELECT_IMAGE,
+            payload: uri
+        });
+    };
+}
+
+export const inputHandler = (text) => {
+    return {
+        type: INPUT_HANDLER,
+        payload: text
+    };
+}
+
+export const checkSavedName = () => {
+    return (dispatch) => {
+        AsyncStorage.getItem('name').then(value => {
+            dispatch({
+                type: SAVED_INPUT,
+                payload: value
+            });
+        })
+    };
+}
+
+export const saveName = (text) => {
+    return (dispatch) => {
+        AsyncStorage.setItem('name', text).then(value => {
+            dispatch({
+                type: DATA_SAVER,
+                payload: value
+            });
+        })
     }
 }

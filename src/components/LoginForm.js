@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, View, Keyboard } from 'react-native';
 import { Card, CardSection, Button, Input, Spinner } from './common';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
@@ -17,6 +17,7 @@ class LoginForm extends Component {
     onButtonPress() {
         const { email, password } = this.props;
         this.props.loginUser({ email, password });
+        Keyboard.dismiss();
     }
 
     renderButton() {
@@ -37,32 +38,33 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <Card>
-                <CardSection>
-                    <Input
-                        label="Email"
-                        placeholder="user@email.com"
-                        onChangeText={this.onEmailChange.bind(this)}
-                        value={this.props.email}
-                    />
-                </CardSection>
-
-                <CardSection>
-                    <Input
-                        secureTextEntry
-                        label="Password"
-                        placeholder="password"
-                        onChangeText={this.onPasswordChange.bind(this)}
-                        value={this.props.password}
-                    />
-                </CardSection>
-                <Text style={styles.errorTextStyles}>
-                    {this.props.error}
-                </Text>
-                <CardSection>
-                    {this.renderButton()}
-                </CardSection>
-            </Card>
+            <View style={styles.viewStyle}>
+                <Card>
+                    <CardSection>
+                        <Input
+                            label="Email"
+                            placeholder="user@email.com"
+                            onChangeText={this.onEmailChange.bind(this)}
+                            value={this.props.email}
+                        />
+                    </CardSection>
+                    <CardSection>
+                        <Input
+                            secureTextEntry
+                            label="Password"
+                            placeholder="password"
+                            onChangeText={this.onPasswordChange.bind(this)}
+                            value={this.props.password}
+                        />
+                    </CardSection>
+                    <Text style={styles.errorTextStyles}>
+                        {this.props.error}
+                    </Text>
+                    <CardSection>
+                        {this.renderButton()}
+                    </CardSection>
+                </Card>
+            </View>
         );
     }
 }
@@ -72,6 +74,9 @@ const styles = {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red'
+    },
+    viewStyle: {
+        paddingTop: 65
     }
 }
 

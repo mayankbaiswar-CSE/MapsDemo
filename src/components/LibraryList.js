@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { ListView, View } from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 
@@ -19,11 +19,20 @@ class LibraryList extends Component {
 
     render() {
         return (
-            <ListView
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-            />
+            <View style={styles.viewStyle}>
+                <ListView
+                    dataSource={this.dataSource}
+                    renderRow={this.renderRow}
+                />
+            </View>
         );
+    }
+}
+
+const styles = {
+    viewStyle: {
+        paddingTop: 65,
+        flex: 1
     }
 }
 

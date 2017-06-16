@@ -4,13 +4,19 @@ PODS:
   - GoogleMaps/Base (2.2.0)
   - GoogleMaps/Maps (2.2.0):
     - GoogleMaps/Base
+  - QBImagePickerController (3.4.0)
+  - RSKImageCropper (1.6.1)
 
 DEPENDENCIES:
   - GoogleMaps
+  - QBImagePickerController
+  - RSKImageCropper
 
 SPEC CHECKSUMS:
   GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
+  QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  RSKImageCropper: 0df8c99e77a8ea7ca7a8b83ef468556f31584254
 
-PODFILE CHECKSUM: ee8a73e8b89690d3ea5211df915980ea49f43a08
+PODFILE CHECKSUM: dbe3053e57fc29bc4be86d699aa2048250e3b55c
 
 COCOAPODS: 1.2.1
